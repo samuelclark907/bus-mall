@@ -1,0 +1,44 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background: burlywood;
+}
+
+header {
+  height: 100px;
+}
+
+header h2 {
+  text-align: center;
+  margin-top: 50px;
+  font-size: 50px;
+}
+
+#container {
+  margin-left: 260px;
+}
+
+section img {
+  border: 3px solid;
+  margin-left: 50px;
+  width: 200px;
+  height: 200px;
+}
+
+div {
+  margin-left: 100px;
+}
+
+ul {
+width: 30%;
+}
+
+li {
+  display: block;
+  margin-left: 20px;
+  margin-top: 5px;
+  border-bottom: 2px solid;
+}
+
