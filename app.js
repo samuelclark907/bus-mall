@@ -85,7 +85,7 @@ function eventHandler(e) {
       myContainer.removeEventListener('click', eventHandler);
       for (var i = 0; i < imgArray.length; i++) {
         var allOfTheViews = document.createElement('li');
-        allOfTheViews.textContent = `${imgArray[i].name} total clicks = ${imgArray[i].clicked} total views = ${imgArray[i].clicked}`;
+        allOfTheViews.textContent = `${imgArray[i].name} total clicks = ${imgArray[i].clicked} total views = ${imgArray[i].viewed}`;
         clixPerItem.append(allOfTheViews);
       }
     }
