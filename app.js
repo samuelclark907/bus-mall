@@ -89,7 +89,7 @@ function eventHandler(e) {
         clixPerItem.append(allOfTheViews);
       }
     }
-    for (var i = 0; i < imgArray.length; i++) {
+    for ( i = 0; i < imgArray.length; i++) {
       if (imgArray[i].name === e.target.alt) {
         imgArray[i].clicked++;
       }
