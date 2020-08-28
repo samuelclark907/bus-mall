@@ -1,13 +1,14 @@
 'use strict';
-
+var renderQue = [];
 var imgArray = [];
 var imgElOne = document.getElementById('image-one');
 var imgElTwo = document.getElementById('image-two');
 var imgElThree = document.getElementById('image-three');
 var myContainer = document.getElementById('container');
 var totalClix = 0;
-var allowedClix = 26;
-var clixPerItem = document.getElementById('totals');
+var allowedClix = 25;
+//var clixPerItem = document.getElementById('totals');
+
 
 
 function Picture(name, src) {
@@ -40,11 +41,30 @@ new Picture('tentacle usb drive', './img/usb.gif');
 new Picture('broken water can', './img/water-can.jpg');
 new Picture('modern wine glass', './img/wine-glass.jpg');
 
+function createRenderQue() {
+  while (renderQue.length > 3) {
+    renderQue.pop();
+  }
+  while (renderQue.length < 6) {
+    var picIndex = randomNumber(renderQue.length);
+    while (renderQue.includes(picIndex)) {
+      picIndex = randomNumber(imgArray.length);
+    }
+    renderQue.unshift(picIndex);
+  }
+
+  console.log(renderQue);
+}
 //render 3 images itterates 1 for viewed
 function renderImages() {
-  var imgOne = imgArray[randomNumber(imgArray.length)];
+  createRenderQue();
+  var imgOne = imgArray[renderQue[0]];
+  var imgTwo = imgArray[renderQue[1]];
+  var imgThree = imgArray[renderQue[2]];
+
+  /*var imgOne = imgArray[randomNumber(imgArray.length)];
   var imgTwo = imgArray[randomNumber(imgArray.length)];
-  var imgThree = imgArray[randomNumber(imgArray.length)];
+  var imgThree = imgArray[randomNumber(imgArray.length)];*/
 
 
   while (imgOne === imgTwo || imgTwo === imgThree || imgOne === imgThree) {
@@ -62,10 +82,9 @@ function renderImages() {
   imgOne.viewed++;
   imgTwo.viewed++;
   imgThree.viewed++;
-
-  console.log(imgArray);
-
 }
+
+//console.log(imgArray);
 
 //random number function to get random picture
 function randomNumber(max) {
@@ -83,22 +102,80 @@ function eventHandler(e) {
     totalClix++;
     if (totalClix === allowedClix) {
       myContainer.removeEventListener('click', eventHandler);
-      for (var i = 0; i < imgArray.length; i++) {
-        var allOfTheViews = document.createElement('li');
-        allOfTheViews.textContent = `${imgArray[i].name} total clicks = ${imgArray[i].clicked} total views = ${imgArray[i].viewed}`;
-        clixPerItem.append(allOfTheViews);
-      }
+      renderChart();
     }
-    for ( i = 0; i < imgArray.length; i++) {
-      if (imgArray[i].name === e.target.alt) {
-        imgArray[i].clicked++;
-      }
-    }
-    renderImages();
   }
+  for (var i = 0; i < imgArray.length; i++) {
+    if (imgArray[i].name === e.target.alt) {
+      imgArray[i].clicked++;
+    }
+  }
+  renderImages();
 }
 
+
 renderImages();
+
+function renderChart() {
+  var clicksArray = [];
+  var viewedArray = [];
+  var pictureNameArray = [];
+
+  for (var i = 0; i < imgArray.length; i++) {
+    clicksArray.push(imgArray[i].clicked);
+    viewedArray.push(imgArray[i].viewed);
+    pictureNameArray.push(imgArray[i].name);
+  }
+
+  var chartObject = {
+    type: 'bar',
+    data: {
+      labels: pictureNameArray,
+      datasets: [{
+        label: '# of clicks',
+        data: clicksArray,
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        hoverBackgroundColor: 'teal',
+        borderWidth: 1
+      }, {
+        label: '# of Views',
+        data: viewedArray,
+        backgroundColor: 'rgba(255, 159, 64, 0.2)',
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(153, 102, 255, 1)',
+          'rgba(255, 159, 64, 1)'
+        ],
+        hoverBackgroundColor: 'green',
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      },
+    }
+  };
+
+  var ctx = document.getElementById('myChart').getContext('2d');
+
+  var myChart = new Chart(ctx, chartObject); //eslint-disable-line
+}
 
 myContainer.addEventListener('click', eventHandler);
 
