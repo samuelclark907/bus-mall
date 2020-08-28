@@ -2,10 +2,6 @@
   box-sizing: border-box;
 }
 
-body {
-  background: burlywood;
-}
-
 header {
   height: 100px;
 }
@@ -41,6 +37,8 @@ li {
   margin-top: 5px;
   border-bottom: 2px solid;
 }
+
+
 
 
 
