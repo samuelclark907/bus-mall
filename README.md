@@ -1,3 +1,3 @@
 # bus-mall
 
-I collaborate with anthony and karlo
+- I collaborate with anthony and karlo

@@ -7,6 +7,7 @@ var imgElThree = document.getElementById('image-three');
 var myContainer = document.getElementById('container');
 var totalClix = 0;
 var allowedClix = 25;
+
 //var clixPerItem = document.getElementById('totals');
 
 
@@ -19,28 +20,32 @@ function Picture(name, src) {
 
   imgArray.push(this);
 }
-//enter actual name and src for instance and how many instances you want.
-new Picture('R2D2', './img/bag.jpg');
-new Picture('banana slicer', './img/banana.jpg');
-new Picture('tp/ipad holder', './img/bathroom.jpg');
-new Picture('open toe rubber boots', './img/boots.jpg');
-new Picture('all in 1', './img/breakfast.jpg');
-new Picture('meatball bubblegum', './img/bubblegum.jpg');
-new Picture('broken chair', './img/chair.jpg');
-new Picture('alien villian', './img/cthulhu.jpg');
-new Picture('duck bill dog muzzle', './img/dog-duck.jpg');
-new Picture('dragon meat', './img/dragon.jpg');
-new Picture('utensil pen tops', './img/pen.jpg');
-new Picture('pet mop', './img/pet-sweep.jpg');
-new Picture('pizza scizzors', './img/scissors.jpg');
-new Picture('shark sleeping bag', './img/shark.jpg');
-new Picture('baby mop', './img/sweep.png');
-new Picture('tauntaun sleeping bag', './img/tauntaun.jpg');
-new Picture('unicorn meat', './img/unicorn.jpg');
-new Picture('tentacle usb drive', './img/usb.gif');
-new Picture('broken water can', './img/water-can.jpg');
-new Picture('modern wine glass', './img/wine-glass.jpg');
-
+var retrievedImgs = localStorage.getItem('savedPics');
+if (retrievedImgs) {
+  imgArray = JSON.parse(retrievedImgs);
+} else {
+  //enter actual name and src for instance and how many instances you want.
+  new Picture('R2D2', './img/bag.jpg');
+  new Picture('banana slicer', './img/banana.jpg');
+  new Picture('tp/ipad holder', './img/bathroom.jpg');
+  new Picture('open toe rubber boots', './img/boots.jpg');
+  new Picture('all in 1', './img/breakfast.jpg');
+  new Picture('meatball bubblegum', './img/bubblegum.jpg');
+  new Picture('broken chair', './img/chair.jpg');
+  new Picture('alien villian', './img/cthulhu.jpg');
+  new Picture('duck bill dog muzzle', './img/dog-duck.jpg');
+  new Picture('dragon meat', './img/dragon.jpg');
+  new Picture('utensil pen tops', './img/pen.jpg');
+  new Picture('pet mop', './img/pet-sweep.jpg');
+  new Picture('pizza scizzors', './img/scissors.jpg');
+  new Picture('shark sleeping bag', './img/shark.jpg');
+  new Picture('baby mop', './img/sweep.png');
+  new Picture('tauntaun sleeping bag', './img/tauntaun.jpg');
+  new Picture('unicorn meat', './img/unicorn.jpg');
+  new Picture('tentacle usb drive', './img/usb.gif');
+  new Picture('broken water can', './img/water-can.jpg');
+  new Picture('modern wine glass', './img/wine-glass.jpg');
+}
 function createRenderQue() {
   while (renderQue.length > 3) {
     renderQue.pop();
@@ -103,8 +108,12 @@ function eventHandler(e) {
     if (totalClix === allowedClix) {
       myContainer.removeEventListener('click', eventHandler);
       renderChart();
+      var stringArray = JSON.stringify(imgArray);
+      localStorage.setItem('savedPics', stringArray);
+
     }
   }
+
   for (var i = 0; i < imgArray.length; i++) {
     if (imgArray[i].name === e.target.alt) {
       imgArray[i].clicked++;
@@ -112,6 +121,7 @@ function eventHandler(e) {
   }
   renderImages();
 }
+
 
 
 renderImages();
