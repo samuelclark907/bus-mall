@@ -2,23 +2,21 @@
   box-sizing: border-box;
 }
 
-body {
-  background: burlywood;
-}
-
 header {
   height: 100px;
 }
 
-header h2 {
+ h1 {
+ 
   text-align: center;
   margin-top: 50px;
   font-size: 50px;
-}
+  }
+ 
+
 
 section {
   margin-left: 260px;
-  margin-bottom: 100px;
 }
 
 section img {
@@ -42,6 +40,8 @@ li {
   margin-top: 5px;
   border-bottom: 2px solid;
 }
+
+
 
 
 
