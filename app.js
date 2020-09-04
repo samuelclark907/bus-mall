@@ -46,12 +46,13 @@ if (retrievedImgs) {
   new Picture('broken water can', './img/water-can.jpg');
   new Picture('modern wine glass', './img/wine-glass.jpg');
 }
+
 function createRenderQue() {
   while (renderQue.length > 3) {
     renderQue.pop();
   }
   while (renderQue.length < 6) {
-    var picIndex = randomNumber(renderQue.length);
+    var picIndex = randomNumber(imgArray.length);
     while (renderQue.includes(picIndex)) {
       picIndex = randomNumber(imgArray.length);
     }
@@ -72,10 +73,10 @@ function renderImages() {
   var imgThree = imgArray[randomNumber(imgArray.length)];*/
 
 
-  while (imgOne === imgTwo || imgTwo === imgThree || imgOne === imgThree) {
+  /*while (imgOne === imgTwo || imgTwo === imgThree || imgOne === imgThree) {
     imgTwo = imgArray[randomNumber(imgArray.length)];
     imgThree = imgArray[randomNumber(imgArray.length)];
-  }
+  }*/
   imgElOne.src = imgOne.src;
   imgElTwo.src = imgTwo.src;
   imgElThree.src = imgThree.src;
@@ -144,29 +145,15 @@ function renderChart() {
       datasets: [{
         label: '# of clicks',
         data: clicksArray,
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
+        backgroundColor: 'red',
+        borderColor: 'black',
         hoverBackgroundColor: 'teal',
         borderWidth: 1
       }, {
         label: '# of Views',
         data: viewedArray,
-        backgroundColor: 'rgba(255, 159, 64, 0.2)',
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
+        backgroundColor: 'green',
+        borderColor: 'black',
         hoverBackgroundColor: 'green',
         borderWidth: 1
       }]
